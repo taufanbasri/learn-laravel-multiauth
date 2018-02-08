@@ -34,6 +34,20 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except(['logoutUser', 'logout']);
+    }
+
+    /**
+     * Copied from vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logoutUser()
+    {
+        Auth::guard('web')->logout();
+
+        return redirect('/');
     }
 }

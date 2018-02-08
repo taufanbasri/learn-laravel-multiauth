@@ -55,4 +55,18 @@ class LoginController extends Controller
         // If login unsuccessful, then redirect back to the login with the form data
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
+
+    /**
+     * Copied from vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+
+        return redirect('/');
+    }
 }
